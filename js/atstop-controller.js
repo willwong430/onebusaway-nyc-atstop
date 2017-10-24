@@ -5,8 +5,8 @@ angular.module('atstop.atstop.controller', ['configuration', 'filters'])
  * @description
  * Controller used for showing upcoming vehicles for specific stop.
  */
-.controller('AtStopCtrl', ['$log', '$ionicScrollDelegate', '$scope', 'AtStopService', '$stateParams', '$q', '$ionicLoading', 'FavoritesService', '$timeout', '$filter', 'datetimeService', '$interval', '$location',
-    function($log, $ionicScrollDelegate, $scope, AtStopService, $stateParams, $q, $ionicLoading, FavoritesService, $timeout, $filter, datetimeService, $interval, $location) {
+.controller('AtStopCtrl', ['$log', '$ionicScrollDelegate', '$scope', 'AtStopService', '$stateParams', '$q', '$ionicLoading', 'FavoritesService', '$timeout', '$filter', 'datetimeService', 'apcService', '$interval', '$location',
+    function($log, $ionicScrollDelegate, $scope, AtStopService, $stateParams, $q, $ionicLoading, FavoritesService, $timeout, $filter, datetimeService, apcService, $interval, $location) {
         $scope.data = {
             "link": "map",
             "alerts": "",

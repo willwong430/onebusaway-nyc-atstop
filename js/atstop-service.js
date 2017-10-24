@@ -25,7 +25,7 @@ angular.module('atstop.atstop.service', ['ionic', 'configuration'])
  * In this current incarnation, it is tailored to SIRI StopMonitoring, version 2
  * It is possible to refactor this to use another realtime API spec by changing parameters, URL, and responsePromise
  */
-.factory('AtStopService', function($log, $q, $http, $filter, httpTimeout, CacheFactory, datetimeService, API_END_POINT, API_KEY) {
+.factory('AtStopService', function($log, $q, $http, $filter, httpTimeout, CacheFactory, datetimeService, apcService, API_END_POINT, API_KEY) {
 
     if (!CacheFactory.get('atStopCache')) {
         CacheFactory('atStopCache', {
@@ -119,7 +119,6 @@ angular.module('atstop.atstop.service', ['ionic', 'configuration'])
                 cache: CacheFactory.get('atStopCache')
             })
             .success(function(data, status, header, config) {
-                console.log('here i am');
                 buses.responseTimestamp = data.Siri.ServiceDelivery.ResponseTimestamp;
                 if (data.Siri.ServiceDelivery.StopMonitoringDelivery[0].MonitoredStopVisit.length > 0) {
                     var tmp = [];
@@ -130,12 +129,6 @@ angular.module('atstop.atstop.service', ['ionic', 'configuration'])
                         // SIRI V2 API JSON returns destination in an array :( Bug is filed.
                         var destination = value.MonitoredVehicleJourney.DestinationName;
                         var safeDestination = Array.isArray(destination) ? destination[0] : destination;
-                        var occupancy = value.MonitoredVehicleJourney.Occupancy;
-                        if (occupancy === "seatsAvailable") {
-                            occupancy = "seats available"
-                        } else if (occupancy === "full") {
-                            occupancy = "full"
-                        }
 
                         tmp.push({
                             routeId: value.MonitoredVehicleJourney.LineRef,
@@ -145,7 +138,7 @@ angular.module('atstop.atstop.service', ['ionic', 'configuration'])
                             progress: value.MonitoredVehicleJourney.ProgressStatus,
                             departsTerminal: value.MonitoredVehicleJourney.OriginAimedDepartureTime,
                             expectedArrivalTime: value.MonitoredVehicleJourney.MonitoredCall.ExpectedArrivalTime,
-                            occupancyStatus: occupancy
+                            occupancyStatus: apcService.getOccupancyStatus(value.MonitoredVehicleJourney)
                         });
                     });
 

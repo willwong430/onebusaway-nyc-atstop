@@ -21,7 +21,7 @@ angular.module('atstop', [
  'atstop.favorites.controller', 'atstop.gohome.controller',
   'atstop.map.controller',  'atstop.nearby.controller',
  'atstop.route.controller', 'atstop.search.controller', 
- 'atstop.atstop.service','atstop.datetime.service',
+ 'atstop.atstop.service','atstop.datetime.service','atstop.apc.service',
  'atstop.favorites.service', 'atstop.geolocation.service',
     'atstop.storage.service','atstop.route.service',
   'atstop.search.service', 'atstop.searchHistory.service',
