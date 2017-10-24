@@ -119,6 +119,7 @@ angular.module('atstop.atstop.service', ['ionic', 'configuration'])
                 cache: CacheFactory.get('atStopCache')
             })
             .success(function(data, status, header, config) {
+                console.log('here i am');
                 buses.responseTimestamp = data.Siri.ServiceDelivery.ResponseTimestamp;
                 if (data.Siri.ServiceDelivery.StopMonitoringDelivery[0].MonitoredStopVisit.length > 0) {
                     var tmp = [];
@@ -129,6 +130,12 @@ angular.module('atstop.atstop.service', ['ionic', 'configuration'])
                         // SIRI V2 API JSON returns destination in an array :( Bug is filed.
                         var destination = value.MonitoredVehicleJourney.DestinationName;
                         var safeDestination = Array.isArray(destination) ? destination[0] : destination;
+                        var occupancy = value.MonitoredVehicleJourney.Occupancy;
+                        if (occupancy === "seatsAvailable") {
+                            occupancy = "seats available"
+                        } else if (occupancy === "full") {
+                            occupancy = "full"
+                        }
 
                         tmp.push({
                             routeId: value.MonitoredVehicleJourney.LineRef,
@@ -137,7 +144,8 @@ angular.module('atstop.atstop.service', ['ionic', 'configuration'])
                             destination: safeDestination,
                             progress: value.MonitoredVehicleJourney.ProgressStatus,
                             departsTerminal: value.MonitoredVehicleJourney.OriginAimedDepartureTime,
-                            expectedArrivalTime: value.MonitoredVehicleJourney.MonitoredCall.ExpectedArrivalTime
+                            expectedArrivalTime: value.MonitoredVehicleJourney.MonitoredCall.ExpectedArrivalTime,
+                            occupancyStatus: occupancy
                         });
                     });
 
