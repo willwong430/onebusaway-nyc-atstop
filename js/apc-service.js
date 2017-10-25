@@ -31,6 +31,8 @@ angular.module('atstop.apc.service', ['ionic', 'configuration'])
                 occupancy = "seats available";
             } else if (occupancy === "full") {
                 occupancy = "full";
+            } else {
+                occupancy = "";
             }
             return occupancy;
         }
