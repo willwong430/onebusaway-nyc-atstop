@@ -46,7 +46,8 @@ angular.module('atstop.search.service', ['ionic', 'configuration'])
                     q: term
                 },
                 cache: true,
-                timeout: httpTimeout
+                timeout: httpTimeout,
+                jsonpCallbackParam: 'callback'
             })
             .success(function(data, status, header, config) {
                 if (data.searchResults.empty === false && data.searchResults.matches.length > 0) {
