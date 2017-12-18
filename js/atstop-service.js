@@ -134,6 +134,7 @@ angular.module('atstop.atstop.service', ['ionic', 'configuration'])
                             routeId: value.MonitoredVehicleJourney.LineRef,
                             name: value.MonitoredVehicleJourney.PublishedLineName,
                             distance: value.MonitoredVehicleJourney.MonitoredCall.ArrivalProximityText,
+                            distanceAsInt: value.MonitoredVehicleJourney.MonitoredCall.DistanceFromStop,
                             destination: safeDestination,
                             progress: value.MonitoredVehicleJourney.ProgressStatus,
                             departsTerminal: value.MonitoredVehicleJourney.OriginAimedDepartureTime,
