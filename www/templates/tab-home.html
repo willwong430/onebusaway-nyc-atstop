@@ -19,12 +19,27 @@
             </ion-list>
         </div>
         <div class="list row" id="all-in-one">
-            <a id="all-in-one-logo" href="https://google.com/" title="Logo">
-                <img src="img/MYmta.png" class="img-responsive" id="all-in-one-logo-img">
-            </a>
-            <a id="all-in-one-logo-text" href="https://google.com/" class="btn btn-primary btn-lg active" role="button">
-                Try our all-in-one app!
-            </a>
+            <div ng-if="platform=='ios'" class="list row">
+                <!-- bustime link -->
+                <a id="all-in-one-logo" ng-click="goToMarket('https://itunes.apple.com/us/app/mta-bus-time/id991384615?mt=8')" title="Logo"> 
+
+                <!-- MYmta link -->                
+                <!-- <a id="all-in-one-logo" ng-click="goToMarket('https://itunes.apple.com/us/app/mymta/id1297605670?ls=1&mt=8')" title="Logo"> -->
+                    <img src="img/MYmta.png" class="img-responsive" id="all-in-one-logo-img">
+                </a>
+                <!-- <a id="all-in-one-logo-text" ng-click="goToMarket('https://itunes.apple.com/us/app/mymta/id1297605670?ls=1&mt=8')" class="btn btn-primary btn-lg active" role="button"> -->
+                <a id="all-in-one-logo-text" ng-click="goToMarket('https://itunes.apple.com/us/app/mta-bus-time/id991384615?mt=8')" class="btn btn-primary btn-lg active" role="button">
+                    Try our all-in-one app!
+                </a>
+            </div>
+            <div ng-if="platform=='android'" class="list row">
+                <a id="all-in-one-logo" ng-click="goToMarket('https://play.google.com/store/apps/details?id=info.mta.mymta')" title="Logo">
+                    <img src="img/MYmta.png" class="img-responsive" id="all-in-one-logo-img">
+                </a>
+                <a id="all-in-one-logo-text" ng-click="goToMarket('https://play.google.com/store/apps/details?id=info.mta.mymta')" class="btn btn-primary btn-lg active" role="button">
+                    Try our all-in-one app!
+                </a>
+            </div>
         </div>
         <div class="list" ng-show="data.showSearches">
             <p>Your Recent Searches:</p>

@@ -5,11 +5,36 @@ angular.module('atstop.search.controller', ['configuration', 'filters'])
  * @description
  * Controller used for searching using autocomplete API.
  */
-.controller('SearchCtrl', ['$log','$rootScope', '$scope', '$location', 'SearchService', 'SearchHistoryService', '$filter', '$ionicLoading', 'RouteService', '$ionicPopup', '$ionicPlatform', 'SHOW_BRANDING', '$ionicTabsDelegate',
-    function($log, $rootScope, $scope, $location, SearchHistoryService, $filter, $ionicLoading, RouteService, $ionicPopup, $ionicPlatform, SearchService, SHOW_BRANDING,  $ionicTabsDelegate) {
+.controller('SearchCtrl', ['$log','$rootScope', '$scope', '$location', 'SearchService', 'SearchHistoryService', '$filter', '$ionicLoading', 'RouteService', '$ionicPopup', '$ionicPlatform', 'SHOW_BRANDING', '$ionicTabsDelegate', '$cordovaInAppBrowser',
+    function($log, $rootScope, $scope, $location, SearchHistoryService, $filter, $ionicLoading, RouteService, $ionicPopup, $ionicPlatform, SearchService, SHOW_BRANDING,  $ionicTabsDelegate, $cordovaInAppBrowser) {
 
         $scope.go = function(path) {
             $location.path(path);
+        };
+
+        var platform = ionic.Platform;
+
+        if (ionic.Platform.isAndroid()){
+            $scope.platform = "android";
+        } else if (platform.isIOS()){
+            $scope.platform = "ios";
+        } else {
+            $scope.platform = "other";
+        }
+    
+        var options = {
+            location: 'yes',
+            clearcache: 'yes',
+            toolbar: 'no'
+        };
+        $scope.goToMarket = function(src) {
+            $cordovaInAppBrowser.open(src, '_blank', options)
+                .then(function(event) {
+                    console.log('success');
+                })
+                .catch(function(event) {
+                    console.log('error');
+                });
         };
 
         $scope.data = {
